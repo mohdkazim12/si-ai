@@ -1,0 +1,57 @@
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:where([class^="ri-"])::before {
+    content: "\f3c2";
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.custom-checkbox {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 1.25rem;
+    height: 1.25rem;
+    border: 2px solid #d1d5db;
+    border-radius: 4px;
+    outline: none;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.2s;
+}
+
+.custom-checkbox:checked {
+    background-color: #4F46E5;
+    border-color: #4F46E5;
+}
+
+.custom-checkbox:checked::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 1px;
+    background-color: white;
+}
+
+.login-bg {
+    background-image: url('https://readdy.ai/api/search-image?query=A%20modern%2C%20clean%20educational%20environment%20with%20soft%20blue%20and%20purple%20gradient%20background.%20Abstract%20geometric%20shapes%20suggesting%20growth%20and%20learning.%20Minimalist%20design%20with%20ample%20white%20space%20for%20text.%20Subtle%20patterns%20of%20books%2C%20graduation%20caps%2C%20and%20academic%20symbols%20in%20the%20background.&width=1920&height=1080&seq=login-bg&orientation=landscape');
+    background-size: cover;
+    background-position: center;
+}
