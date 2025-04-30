@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.auth')
 
 @section('content')
 <div id="register-section" class="min-h-screen login-bg flex items-center justify-center p-4">
