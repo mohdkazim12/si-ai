@@ -2,6 +2,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\AttendanceController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -18,9 +19,16 @@ Route::middleware('auth')->group(function () {
     // Route::get('/dashboard', function () {
     //     // return view('dashboard.student', ['user' => auth()->user()]);
     // })->name('dashboard');
-    Route::get('/dashboard', [StudentController::class, 'dashboard'])->name('dashboard');
-    Route::post('/students/store', [StudentController::class, 'store'])->name('students.store');
-    // Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
+    Route::get('/students/{class?}', [StudentController::class, 'dashboard'])->name('student');
+    
+    Route::post('/students/store', [StudentController::class, 'store'])->name('students.store');    
+    Route::get('/attendance', [AttendanceController::class, 'index'])->name('attendance');
 
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('index');
+
+    Route::post('/mark-attendance', [AttendanceController::class, 'store'])->name('store');
+
+
+    
     
 });

@@ -110,11 +110,13 @@
         </div>
         <div class="border-b border-gray-200 px-4 py-2 flex items-center overflow-x-auto custom-scrollbar">
             <div class="flex space-x-4">
-                <a href="https://readdy.ai/home/b8e20487-1c5f-4382-bb15-ebd7a3c4d48a/c7194a38-0291-4ef5-acc3-195b70ab57d1" data-readdy="true" class="whitespace-nowrap px-3 py-2 text-sm font-medium text-gray-500 border-b-2 border-transparent hover:text-gray-700 hover:border-gray-300">Overview</a>
-                <button class="whitespace-nowrap px-3 py-2 text-sm font-medium text-gray-500 border-b-2 border-transparent hover:text-gray-700 hover:border-gray-300">Class 8A</button>
-                <button class="whitespace-nowrap px-3 py-2 text-sm font-medium text-gray-500 border-b-2 border-transparent hover:text-gray-700 hover:border-gray-300">Class 9B</button>
-                <button class="whitespace-nowrap px-3 py-2 text-sm font-medium text-gray-500 border-b-2 border-transparent hover:text-gray-700 hover:border-gray-300">Class 10C</button>
-                <button class="whitespace-nowrap px-3 py-2 text-sm font-medium text-gray-500 border-b-2 border-transparent hover:text-gray-700 hover:border-gray-300">Class 11A</button>
+                <a href="{{route('dashboard')}}" data-readdy="true" class="whitespace-nowrap px-3 py-2 text-sm font-medium text-gray-500 border-b-2 border-transparent hover:text-gray-700 hover:border-gray-300">Overview</a>
+                <a href="{{route('dashboard',['class' => 12])}}" data-readdy="true" class="whitespace-nowrap px-3 py-2 text-sm font-medium text-gray-500 border-b-2 border-transparent hover:text-gray-700 hover:border-gray-300">Class 12</a>
+                <a href="{{route('dashboard',['class' => 11])}}" data-readdy="true" class="whitespace-nowrap px-3 py-2 text-sm font-medium text-gray-500 border-b-2 border-transparent hover:text-gray-700 hover:border-gray-300">Class 11</a>
+                <a href="{{route('dashboard',['class' => 10])}}" data-readdy="true" class="whitespace-nowrap px-3 py-2 text-sm font-medium text-gray-500 border-b-2 border-transparent hover:text-gray-700 hover:border-gray-300">Class 10</a>
+                <a href="{{route('dashboard',['class' => 9])}}" data-readdy="true" class="whitespace-nowrap px-3 py-2 text-sm font-medium text-gray-500 border-b-2 border-transparent hover:text-gray-700 hover:border-gray-300">Class 9</a>
+                <a href="{{route('dashboard',['class' => 8])}}" data-readdy="true" class="whitespace-nowrap px-3 py-2 text-sm font-medium text-gray-500 border-b-2 border-transparent hover:text-gray-700 hover:border-gray-300">Class 8</a>
+                <a href="{{route('dashboard',['class' => 7])}}" data-readdy="true" class="whitespace-nowrap px-3 py-2 text-sm font-medium text-gray-500 border-b-2 border-transparent hover:text-gray-700 hover:border-gray-300">Class 7</a>
             </div>
         </div>
     </header>
@@ -560,59 +562,87 @@
         </div>
     </div>
 
+            <!-- Modal Overlay -->
+            <div id="studentModal" class="fixed inset-0 z-[1000] hidden bg-black bg-opacity-50 flex items-center justify-center">
+                <div class="bg-white p-6 rounded-xl w-full max-w-lg shadow-lg relative">
+                    <button id="closeModalBtn" class="absolute top-2 right-2 text-gray-500 hover:text-gray-800 text-xl">×</button>
 
-    <!-- Modal Overlay -->
-    <div id="studentModal" class="fixed inset-0 z-50 hidden bg-black bg-opacity-50 flex items-center justify-center">
-        <div class="bg-white p-6 rounded-lg w-full max-w-lg shadow-lg relative">
-            <button id="closeModalBtn" class="absolute top-2 right-2 text-gray-500 hover:text-gray-800 text-xl">&times;</button>
+                    <h2 class="text-xl font-semibold mb-6 text-gray-900">Add New Student</h2>
 
-            <h2 class="text-xl font-semibold mb-4">Add New Student</h2>
+                    <form id="studentForm" method="POST" action="{{ route('students.store') }}" enctype="multipart/form-data" class="space-y-6">
+                        @csrf
 
-            <form id="studentForm" method="POST" action="{{ route('students.store') }}" enctype="multipart/form-data" class="space-y-4">
-                @csrf
+                        <div class="relative">
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Name</label>
+                            <div class="relative">
+                                <input type="text" name="name" class="w-full border border-gray-300 rounded-md pl-10 pr-3 py-2 text-gray-900 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" placeholder="Enter name" required>
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <i class="ri-user-line text-gray-400"></i>
+                                </div>
+                            </div>
+                        </div>
 
-                <div>
-                    <label class="block text-sm font-medium">Name</label>
-                    <input type="text" name="name" class="w-full border rounded px-3 py-2 mt-1" required>
+                        <div class="relative">
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                            <div class="relative">
+                                <input type="email" name="email" class="w-full border border-gray-300 rounded-md pl-10 pr-3 py-2 text-gray-900 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" placeholder="your@email.com" required>
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <i class="ri-mail-line text-gray-400"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="relative">
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Mobile Number</label>
+                            <div class="relative">
+                                <input type="text" name="number" class="w-full border border-gray-300 rounded-md pl-10 pr-3 py-2 text-gray-900 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" placeholder="+91 1234567890" required>
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <i class="ri-phone-line text-gray-400"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex space-x-4">
+                <div class="w-1/2">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Class</label>
+                    <select name="class" class="w-full border border-gray-300 rounded-md pl-3 pr-3 py-2 text-gray-900 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" required>
+                        <option value="" selected disabled>Select Class</option>
+                        @foreach(App\Helpers\SchoolHelper::classList() as $key => $classList)
+                            <option value="{{$key}}">{{$classList}}</option>
+                        @endforeach
+                    </select>
                 </div>
-
-                <div>
-                    <label class="block text-sm font-medium">Email</label>
-                    <input type="email" name="email" class="w-full border rounded px-3 py-2 mt-1" required>
+                
+                <div class="w-1/2">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Section</label>
+                    <select name="section" class="w-full border border-gray-300 rounded-md pl-3 pr-3 py-2 text-gray-900 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                        <option value="" selected disabled>Select Class</option>
+                        @foreach(App\Helpers\SchoolHelper::sectionList() as $key => $sectionList)
+                            <option value="{{$key}}">{{$sectionList}}</option>
+                        @endforeach
+                    </select>
                 </div>
+            </div>
 
-                <div>
-                    <label class="block text-sm font-medium">Mobile Number</label>
-                    <input type="text" name="number" class="w-full border rounded px-3 py-2 mt-1" required>
-                </div>
 
-                <div>
-                    <label class="block text-sm font-medium">Class</label>
-                    <input type="text" name="class" class="w-full border rounded px-3 py-2 mt-1" required>
-                </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Roll Number</label>
+                <input type="text" name="roll_number" class="w-full border border-gray-300 rounded-md pl-3 pr-3 py-2 text-gray-900 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" placeholder="Enter roll number">
+            </div>
 
-                <div>
-                    <label class="block text-sm font-medium">Section</label>
-                    <input type="text" name="section" class="w-full border rounded px-3 py-2 mt-1">
-                </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Profile Picture</label>
+                <input type="file" name="profile_picture" class="w-full mt-1 text-gray-900">
+            </div>
 
-                <div>
-                    <label class="block text-sm font-medium">Roll Number</label>
-                    <input type="text" name="roll_number" class="w-full border rounded px-3 py-2 mt-1">
-                </div>
-
-                <div>
-                    <label class="block text-sm font-medium">Profile Picture</label>
-                    <input type="file" name="profile_picture" class="w-full mt-1">
-                </div>
-
-                <div class="flex justify-end space-x-2 pt-4">
-                    <button type="button" id="cancelBtn" class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400">Cancel</button>
-                    <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700">Save</button>
-                </div>
-            </form>
-        </div>
+            <div class="flex justify-end space-x-3 pt-6">
+                <button type="button" id="cancelBtn" class="px-4 py-2 bg-gray-300 text-gray-800 rounded-md hover:bg-gray-400">Cancel</button>
+                <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700">Save</button>
+            </div>
+        </form>
     </div>
+</div>
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- Include in your blade -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet"/>

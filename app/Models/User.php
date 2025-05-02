@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use App\Models\Student;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class User extends Authenticatable
 {
@@ -15,6 +16,8 @@ class User extends Authenticatable
         'name',
         'email',
         'mobile_no',
+        'status',
+        'role',
         'password',
     ];
 
@@ -30,5 +33,9 @@ class User extends Authenticatable
     public function student()
     {
         return $this->hasOne(Student::class, 'user_id'); // connects user.id to student.user_id
+    }
+    public function attendances(): HasMany
+    {
+        return $this->hasMany(Attendance::class);
     }
 }

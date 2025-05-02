@@ -9,13 +9,17 @@ use App\Http\Requests\StoreStudentRequest;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use App\Helpers\SchoolHelper;
 
 class StudentController extends Controller
 {
     public function dashboard(Request $request)
     {
-        $students = Student::with('user')->paginate(7);
+        $class = (int)$request->class;
 
+        $query = Student::with('user');
+        $class ? $query = $query->where('class',$class) : null;
+        $students = $query->orderBy('id','desc')->paginate(4);
         if ($request->ajax()) {
             return response()->json([
                 'students' => $students->items(),
@@ -30,12 +34,16 @@ class StudentController extends Controller
     {
         try {
             DB::beginTransaction();
+            $roles = SchoolHelper::roles();
+            $role = array_flip($role);
+            $student = $role['student']??'3';
 
             // 1. Create user
             $user = User::create([
                 'name' => $request->name,
                 'email' => $request->email,
                 'mobile_no' => $request->number,
+                'role' => $student,
                 'password' => Hash::make('12345678'), // Default password, update as needed
             ]);
 

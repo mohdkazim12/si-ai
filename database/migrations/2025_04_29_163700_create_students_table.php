@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->integer('class')->index();  
-            $table->integer('section')->index();
-            $table->integer('roll_number')->index();
+            $table->string('section')->index();
+            $table->string('roll_number')->index();
             $table->timestamps();
         });
     }

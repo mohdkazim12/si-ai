@@ -16,19 +16,19 @@
                 </div>
             </div>
             <nav class="flex-1 px-2 py-4 space-y-1 overflow-y-auto custom-scrollbar">
-                <a href="https://readdy.ai/home/b8e20487-1c5f-4382-bb15-ebd7a3c4d48a/c7194a38-0291-4ef5-acc3-195b70ab57d1" data-readdy="true" class="flex items-center px-4 py-2.5 text-sm font-medium text-gray-600 hover:bg-gray-100 rounded-lg">
+                <a href="{{route('index')}}" data-readdy="true" class="flex items-center px-4 py-2.5 text-sm font-medium text-gray-600 hover:bg-gray-100 rounded-lg">
                     <div class="w-6 h-6 mr-3 flex items-center justify-center">
                         <i class="ri-dashboard-line"></i>
                     </div>
                     Dashboard
                 </a>
-                <a href="#" class="flex items-center px-4 py-2.5 text-sm font-medium text-primary bg-primary/10 rounded-lg">
+                <a href="{{route('student')}}" class="flex items-center px-4 py-2.5 text-sm font-medium text-primary bg-primary/10 rounded-lg">
                     <div class="w-6 h-6 mr-3 flex items-center justify-center">
                         <i class="ri-user-line"></i>
                     </div>
                     Students
                 </a>
-                <a href="#" class="flex items-center px-4 py-2.5 text-sm font-medium text-gray-600 hover:bg-gray-100 rounded-lg">
+                <a href="{{route('attendance')}}" class="flex items-center px-4 py-2.5 text-sm font-medium text-gray-600 hover:bg-gray-100 rounded-lg">
                     <div class="w-6 h-6 mr-3 flex items-center justify-center">
                         <i class="ri-calendar-line"></i>
                     </div>
