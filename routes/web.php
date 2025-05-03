@@ -3,6 +3,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\AttendanceController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -16,19 +17,27 @@ Route::post('/login', [AuthController::class, 'login'])->middleware('guest');
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::middleware('auth')->group(function () {
-    // Route::get('/dashboard', function () {
-    //     // return view('dashboard.student', ['user' => auth()->user()]);
-    // })->name('dashboard');
-    Route::get('/students/{class?}', [StudentController::class, 'dashboard'])->name('student');
-    
-    Route::post('/students/store', [StudentController::class, 'store'])->name('students.store');    
-    Route::get('/attendance', [AttendanceController::class, 'index'])->name('attendance');
+    // StudentController
+    Route::group(['prefix' => 'student'], function () {
+        Route::get('/{class?}', [StudentController::class, 'dashboard'])->name('student');
+        Route::post('/store', [StudentController::class, 'store'])->name('students.store');
+    });
 
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('index');
+    // AttendanceController
+    Route::group(['prefix' => 'attendance'], function () {
+        Route::get('/', [AttendanceController::class, 'index'])->name('attendance');
+        Route::post('/mark', [AttendanceController::class, 'store'])->name('store');
+    });
 
-    Route::post('/mark-attendance', [AttendanceController::class, 'store'])->name('store');
+    // DashboardController
+    Route::group(['prefix' => 'dashboard'], function () {
+        Route::get('/', [DashboardController::class, 'index'])->name('index');
+    });
 
+    Route::group(['prefix' => 'users'], function () {
+        Route::get('/all-user', [UserController::class, 'allUsers'])->name('all-user');
+        Route::get('/data', [UserController::class, 'getUsers']);
+    });
 
-    
     
 });

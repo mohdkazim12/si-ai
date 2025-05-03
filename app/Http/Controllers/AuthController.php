@@ -19,7 +19,7 @@ class AuthController extends Controller
     {
         $user = $this->registerUser($request->validated());
         if($user){
-            return redirect()->route('login');
+            return redirect()->route('login')->with('message', 'User Register Successfully ! Thank You');
         }
         // Auth::login($user);
         return redirect()->route('register');

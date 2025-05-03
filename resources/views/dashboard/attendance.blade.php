@@ -110,13 +110,13 @@
         </div>
         <div class="border-b border-gray-200 px-4 py-2 flex items-center overflow-x-auto custom-scrollbar">
             <div class="flex space-x-4">
-                <a href="{{route('student')}}" data-readdy="true" class="whitespace-nowrap px-3 py-2 text-sm font-medium text-gray-500 border-b-2 border-transparent hover:text-gray-700 hover:border-gray-300">Overview</a>
-                <a href="{{route('student',['class' => 12])}}" data-readdy="true" class="whitespace-nowrap px-3 py-2 text-sm font-medium text-gray-500 border-b-2 border-transparent hover:text-gray-700 hover:border-gray-300">Class 12</a>
-                <a href="{{route('student',['class' => 11])}}" data-readdy="true" class="whitespace-nowrap px-3 py-2 text-sm font-medium text-gray-500 border-b-2 border-transparent hover:text-gray-700 hover:border-gray-300">Class 11</a>
-                <a href="{{route('student',['class' => 10])}}" data-readdy="true" class="whitespace-nowrap px-3 py-2 text-sm font-medium text-gray-500 border-b-2 border-transparent hover:text-gray-700 hover:border-gray-300">Class 10</a>
-                <a href="{{route('student',['class' => 9])}}" data-readdy="true" class="whitespace-nowrap px-3 py-2 text-sm font-medium text-gray-500 border-b-2 border-transparent hover:text-gray-700 hover:border-gray-300">Class 9</a>
-                <a href="{{route('student',['class' => 8])}}" data-readdy="true" class="whitespace-nowrap px-3 py-2 text-sm font-medium text-gray-500 border-b-2 border-transparent hover:text-gray-700 hover:border-gray-300">Class 8</a>
-                <a href="{{route('student',['class' => 7])}}" data-readdy="true" class="whitespace-nowrap px-3 py-2 text-sm font-medium text-gray-500 border-b-2 border-transparent hover:text-gray-700 hover:border-gray-300">Class 7</a>
+                <a href="{{route('dashboard')}}" data-readdy="true" class="whitespace-nowrap px-3 py-2 text-sm font-medium text-gray-500 border-b-2 border-transparent hover:text-gray-700 hover:border-gray-300">Overview</a>
+                <a href="{{route('dashboard',['class' => 12])}}" data-readdy="true" class="whitespace-nowrap px-3 py-2 text-sm font-medium text-gray-500 border-b-2 border-transparent hover:text-gray-700 hover:border-gray-300">Class 12</a>
+                <a href="{{route('dashboard',['class' => 11])}}" data-readdy="true" class="whitespace-nowrap px-3 py-2 text-sm font-medium text-gray-500 border-b-2 border-transparent hover:text-gray-700 hover:border-gray-300">Class 11</a>
+                <a href="{{route('dashboard',['class' => 10])}}" data-readdy="true" class="whitespace-nowrap px-3 py-2 text-sm font-medium text-gray-500 border-b-2 border-transparent hover:text-gray-700 hover:border-gray-300">Class 10</a>
+                <a href="{{route('dashboard',['class' => 9])}}" data-readdy="true" class="whitespace-nowrap px-3 py-2 text-sm font-medium text-gray-500 border-b-2 border-transparent hover:text-gray-700 hover:border-gray-300">Class 9</a>
+                <a href="{{route('dashboard',['class' => 8])}}" data-readdy="true" class="whitespace-nowrap px-3 py-2 text-sm font-medium text-gray-500 border-b-2 border-transparent hover:text-gray-700 hover:border-gray-300">Class 8</a>
+                <a href="{{route('dashboard',['class' => 7])}}" data-readdy="true" class="whitespace-nowrap px-3 py-2 text-sm font-medium text-gray-500 border-b-2 border-transparent hover:text-gray-700 hover:border-gray-300">Class 7</a>
             </div>
         </div>
     </header>
@@ -139,7 +139,7 @@
                             <div class="w-4 h-4 text-gray-400 mx-1 flex items-center justify-center">
                                 <i class="ri-arrow-right-s-line"></i>
                             </div>
-                            <span class="text-sm font-medium text-primary">Students</span>
+                            <span class="text-sm font-medium text-primary">Attendance</span>
                         </div>
                     </li>
                 </ol>
@@ -148,7 +148,7 @@
             <!-- Students Header -->
             <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
                 <div>
-                    <h1 class="text-2xl font-bold text-gray-900">Students</h1>
+                    <h1 class="text-2xl font-bold text-gray-900">Attendance</h1>
                     <p class="text-gray-600">Manage all your students in one place</p>
                 </div>
                 <div class="mt-4 md:mt-0 flex flex-wrap gap-3">

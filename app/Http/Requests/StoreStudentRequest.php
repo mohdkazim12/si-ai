@@ -12,13 +12,13 @@ class StoreStudentRequest extends FormRequest
     }
 
     public function rules()
-    {
+    {    
         return [
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
             'number' => 'required|digits_between:10,15',
             'class' => 'required|integer',
-            'section' => 'integer|nullable|string|max:50',
+            'section' => 'string|nullable|string|max:50',
             'roll_number' => 'integer|nullable|max:5000',
             'profile_picture' => 'nullable|image|max:2048',
         ];

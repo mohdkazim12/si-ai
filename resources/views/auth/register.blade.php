@@ -98,6 +98,8 @@
                 </div>
             </div>
 
+            <input type="hidden" name="role" id="user-role" placeholder="User Role">
+
             <!-- Submit Button -->
             <div>
                 <button type="submit" class="w-full bg-primary text-white py-3 rounded-button font-medium hover:bg-primary/90 transition duration-200 whitespace-nowrap">Create Account</button>
@@ -106,6 +108,33 @@
 
         <div class="mt-6 text-center">
             <p class="text-gray-600">Already have an account? <a href="{{ route('login') }}" class="text-primary hover:underline">Sign In</a></p>
+        </div>
+         <!-- Role Selection -->
+         <div class="mt-8 pt-6 border-t border-gray-200">
+         @error('role')
+            <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+        @enderror
+            <p class="text-sm text-gray-600 mb-3 text-center">Select your role</p>
+            <div class="grid grid-cols-3 gap-3">
+                <button class="role-btn flex flex-col items-center p-3 border border-gray-200 rounded-lg hover:border-primary hover:bg-primary/5 transition-all" data-role="teacher">
+                    <div class="w-8 h-8 flex items-center justify-center text-primary mb-1">
+                        <i class="ri-user-3-line ri-lg"></i>
+                    </div>
+                    <span class="text-sm">Teacher</span>
+                </button>
+                <button class="role-btn flex flex-col items-center p-3 border border-gray-200 rounded-lg hover:border-primary hover:bg-primary/5 transition-all" data-role="parent">
+                    <div class="w-8 h-8 flex items-center justify-center text-primary mb-1">
+                        <i class="ri-parent-line ri-lg"></i>
+                    </div>
+                    <span class="text-sm">Parent</span>
+                </button>
+                <button class="role-btn flex flex-col items-center p-3 border border-gray-200 rounded-lg hover:border-primary hover:bg-primary/5 transition-all" data-role="student">
+                    <div class="w-8 h-8 flex items-center justify-center text-primary mb-1">
+                        <i class="ri-graduation-cap-line ri-lg"></i>
+                    </div>
+                    <span class="text-sm">Student</span>
+                </button>
+            </div>
         </div>
     </div>
 </div>

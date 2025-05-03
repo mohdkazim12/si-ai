@@ -10,24 +10,42 @@
                     <div>
                         <p class="font-medium">{{Str::words(auth()->user()->name)}}</p>
                         <div class="flex items-center text-sm text-gray-500">
-                            <span class="bg-green-100 text-green-800 text-xs px-2 py-0.5 rounded-full">Teacher</span>
+                            <span class="bg-green-100 text-green-800 text-xs px-2 py-0.5 rounded-full">
+                                @role('teacher') Teacher @endrole
+                                @role('student') Student @endrole
+                            </span>
                         </div>
                     </div>
                 </div>
             </div>
             <nav class="flex-1 px-2 py-4 space-y-1 overflow-y-auto custom-scrollbar">
-                <a href="{{route('index')}}" data-readdy="true" class="flex items-center px-4 py-2.5 text-sm font-medium text-gray-600 hover:bg-gray-100 rounded-lg">
-                    <div class="w-6 h-6 mr-3 flex items-center justify-center">
+                @role(['student','teacher'])
+                    <a href="{{ route('index') }}" 
+                    class="flex items-center px-4 py-2.5 text-sm font-medium rounded-lg {{ isActive('index') }}">
+                        <div class="w-6 h-6 mr-3 flex items-center justify-center">
                         <i class="ri-dashboard-line"></i>
-                    </div>
-                    Dashboard
-                </a>
-                <a href="{{route('student')}}" class="flex items-center px-4 py-2.5 text-sm font-medium text-primary bg-primary/10 rounded-lg">
-                    <div class="w-6 h-6 mr-3 flex items-center justify-center">
-                        <i class="ri-user-line"></i>
-                    </div>
-                    Students
-                </a>
+                        </div>
+                        Dashboard
+                    </a>
+                @endrole
+                @role('teacher')
+                    <a href="{{ route('all-user') }}" 
+                        class="flex items-center px-4 py-2.5 text-sm font-medium rounded-lg {{ isActive('all-user') }}">
+                        <div class="w-6 h-6 mr-3 flex items-center justify-center">
+                            <i class="ri-user-line"></i>
+                        </div>
+                        All User
+                    </a>
+                    <a href="{{ route('student') }}" 
+                    class="flex items-center px-4 py-2.5 text-sm font-medium rounded-lg {{ isActive('student') }}">
+                        <div class="w-6 h-6 mr-3 flex items-center justify-center">
+                            <i class="ri-user-line"></i>
+                        </div>
+                        Students
+                    </a>
+                @endrole
+                
+                
                 <a href="{{route('attendance')}}" class="flex items-center px-4 py-2.5 text-sm font-medium text-gray-600 hover:bg-gray-100 rounded-lg">
                     <div class="w-6 h-6 mr-3 flex items-center justify-center">
                         <i class="ri-calendar-line"></i>

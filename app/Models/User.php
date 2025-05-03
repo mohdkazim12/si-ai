@@ -9,9 +9,12 @@ use Illuminate\Notifications\Notifiable;
 use App\Models\Student;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
+    use HasRoles;
+
     protected $fillable = [
         'name',
         'email',

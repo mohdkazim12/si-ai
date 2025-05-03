@@ -285,6 +285,33 @@
             }
         });
     </script>
+<!-- Include Dependencies -->
+<link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+    $(document).ready(function () {
+        // Role selection
+        $('.role-btn').on('click', function () {
+            const selectedRole = $(this).data('role');
+            $('#user-role').val(selectedRole);
+            console.log('Selected role:', selectedRole); // Debug: Confirm role selection
+        });
+
+        // Check if session message exists
+        @if(session()->has('message'))
+            Swal.fire({
+                icon: 'success',
+                title: 'Registered',
+                text: `{!! session()->get('message') !!}`,
+                showConfirmButton: true,
+                confirmButtonColor: '#3B82F6',
+                footer: '<a href="/attendance-history">View attendance history</a>'
+            });
+        @endif
+    });
+</script>
 </body>
 
 </html>

@@ -14,6 +14,12 @@
             <button id="google-tab" class="flex-1 py-3 text-gray-500 font-medium">Continue with Google</button>
         </div>
 
+                @if(session()->has('message'))
+                    <div class="alert alert-success">
+                        
+                    </div>
+                @endif
+
         <!-- Email Login Form -->
         <form id="email-login-form" class="space-y-4" method="POST" action="{{ route('login') }}">
             @csrf
