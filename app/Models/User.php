@@ -33,12 +33,21 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function student()
+    public function student() : hasOne
     {
-        return $this->hasOne(Student::class, 'user_id'); // connects user.id to student.user_id
+        return $this->hasOne(Student::class);
+    }
+    public function studentDetails(): HasMany
+    {
+        return $this->hasMany(Student::class);
     }
     public function attendances(): HasMany
     {
         return $this->hasMany(Attendance::class);
+    }
+
+    public function attendanceDetails(): hasOne
+    {
+        return $this->hasOne(Attendance::class)->where('date','2025-05-04');
     }
 }

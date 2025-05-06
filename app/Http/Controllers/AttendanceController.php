@@ -12,9 +12,11 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use App\Helpers\SchoolHelper;
 use Carbon\Carbon;
+use App\Traits\HandlesUserRegistration;
 
 class AttendanceController extends Controller
 {
+    use HandlesUserRegistration;
     /**
      * Display a listing of the resource.
      */
@@ -32,25 +34,19 @@ class AttendanceController extends Controller
             ]);
         }
 
-        return view('dashboard.student', compact('students'));
+        return view('dashboard.attendance', compact('students'));
     }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'date' => 'required|date'
-        ]);
+        try{
+        $user_id = $request->user_id ?? auth()->id() ;
+        $attendance_date = $request->date ?? Carbon::now()->format('Y-m-d');
+        // $request->validate([
+        //     'date' => 'required|date'
+        // ]);
         
         // Check if attendance already marked today
         $existing = Attendance::where('user_id', auth()->id())
@@ -65,9 +61,9 @@ class AttendanceController extends Controller
         
         // Create new attendance record
         $attendance = Attendance::create([
-            'user_id' => auth()->id(),
+            'user_id' => $user_id,
             'marked_by' => auth()->id(),
-            'date' => $request->date,
+            'date' => $attendance_date,
             'status' => 'present',
             'marked_at' => now()
         ]);
@@ -80,37 +76,29 @@ class AttendanceController extends Controller
             'message' => 'Attendance marked successfully',
             'new_count' => $todayCount
         ]);
+        } catch (\Throwable $e) {
+            DB::rollBack();
+            return response()->json([
+                'status' => true,
+                'message' => 'Something went wrong.',
+                'error' => $e->getMessage(), 
+            ], 500);
+        }
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Attendance $attendance)
-    {
-        //
-    }
+    public function attendanceDetails(Request $request){    
+        $apiType = 'user_attendance_details';
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Attendance $attendance)
-    {
-        //
-    }
+        $reqDataArr = [
+            'search' => $request->input('search'),
+            'perPage' => $request->input('per_page', 10),
+            'role' => null,
+            'status' => (int) $request->status ?? null,
+            'apiType' => $apiType
+        ];
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Attendance $attendance)
-    {
-        //
-    }
+        $users = $this->getUsersDetails($reqDataArr);
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Attendance $attendance)
-    {
-        //
+        return response()->json($users);
     }
 }

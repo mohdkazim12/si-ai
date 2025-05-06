@@ -567,15 +567,17 @@
                 <div class="bg-white p-6 rounded-xl w-full max-w-lg shadow-lg relative">
                     <button id="closeModalBtn" class="absolute top-2 right-2 text-gray-500 hover:text-gray-800 text-xl">×</button>
 
-                    <h2 class="text-xl font-semibold mb-6 text-gray-900">Add New Student</h2>
+                    <h2 id="modalTitle" class="text-xl font-semibold mb-6 text-gray-900">Add New Student</h2>
 
-                    <form id="studentForm" method="POST" action="{{ route('students.store') }}" enctype="multipart/form-data" class="space-y-6">
+                    <form id="studentForm" method="POST" enctype="multipart/form-data" class="space-y-6">
                         @csrf
+                        @method('POST') <!-- Default method for Add -->
+                        <input type="hidden" name="id" id="studentId"> <!-- Hidden field for student ID during edit -->
 
                         <div class="relative">
                             <label class="block text-sm font-medium text-gray-700 mb-1">Name</label>
                             <div class="relative">
-                                <input type="text" name="name" class="w-full border border-gray-300 rounded-md pl-10 pr-3 py-2 text-gray-900 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" placeholder="Enter name" required>
+                                <input type="text" name="name" id="name" class="w-full border border-gray-300 rounded-md pl-10 pr-3 py-2 text-gray-900 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" placeholder="Enter name" required>
                                 <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                                     <i class="ri-user-line text-gray-400"></i>
                                 </div>
@@ -585,7 +587,7 @@
                         <div class="relative">
                             <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
                             <div class="relative">
-                                <input type="email" name="email" class="w-full border border-gray-300 rounded-md pl-10 pr-3 py-2 text-gray-900 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" placeholder="your@email.com" required>
+                                <input type="email" name="email" id="email" class="w-full border border-gray-300 rounded-md pl-10 pr-3 py-2 text-gray-900 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" placeholder="your@email.com" required>
                                 <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                                     <i class="ri-mail-line text-gray-400"></i>
                                 </div>
@@ -595,7 +597,7 @@
                         <div class="relative">
                             <label class="block text-sm font-medium text-gray-700 mb-1">Mobile Number</label>
                             <div class="relative">
-                                <input type="text" name="number" class="w-full border border-gray-300 rounded-md pl-10 pr-3 py-2 text-gray-900 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" placeholder="+91 1234567890" required>
+                                <input type="text" name="number" id="number" class="w-full border border-gray-300 rounded-md pl-10 pr-3 py-2 text-gray-900 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" placeholder="+91 1234567890" required>
                                 <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                                     <i class="ri-phone-line text-gray-400"></i>
                                 </div>
@@ -603,46 +605,49 @@
                         </div>
 
                         <div class="flex space-x-4">
-                <div class="w-1/2">
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Class</label>
-                    <select name="class" class="w-full border border-gray-300 rounded-md pl-3 pr-3 py-2 text-gray-900 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" required>
-                        <option value="" selected disabled>Select Class</option>
-                        @foreach(App\Helpers\SchoolHelper::classList() as $key => $classList)
-                            <option value="{{$key}}">{{$classList}}</option>
-                        @endforeach
-                    </select>
+                            <div class="w-1/2">
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Class</label>
+                                <select name="class" id="class" class="w-full border border-gray-300 rounded-md pl-3 pr-3 py-2 text-gray-900 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" required>
+                                    <option value="" selected disabled>Select Class</option>
+                                    @foreach(App\Helpers\SchoolHelper::classList() as $key => $classList)
+                                        <option value="{{$key}}">{{$classList}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            
+                            <div class="w-1/2">
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Section</label>
+                                <select name="section" id="section" class="w-full border border-gray-300 rounded-md pl-3 pr-3 py-2 text-gray-900 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                                    <option value="" selected disabled>Select Section</option>
+                                    @foreach(App\Helpers\SchoolHelper::sectionList() as $key => $sectionList)
+                                        <option value="{{$key}}">{{$sectionList}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Roll Number</label>
+                            <input type="text" name="roll_number" id="roll_number" class="w-full border border-gray-300 rounded-md pl-3 pr-3 py-2 text-gray-900 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" placeholder="Enter roll number">
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Profile Picture</label>
+                            <div id="imagePreview" class="mt-2 hidden">
+                                <img id="existingImage" src="" alt="Profile Picture" class="h-20 w-20 object-cover rounded-md">
+                            </div>
+                            <input type="file" name="profile_picture" id="profile_picture" class="w-full mt-1 text-gray-900">
+                        </div>
+
+                        <div class="flex justify-end space-x-3 pt-6">
+                            <button type="button" id="cancelBtn" class="px-4 py-2 bg-gray-300 text-gray-800 rounded-md hover:bg-gray-400">Cancel</button>
+                            <button type="submit" id="submitBtn" class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700">Save</button>
+                        </div>
+                    </form>
                 </div>
-                
-                <div class="w-1/2">
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Section</label>
-                    <select name="section" class="w-full border border-gray-300 rounded-md pl-3 pr-3 py-2 text-gray-900 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
-                        <option value="" selected disabled>Select Class</option>
-                        @foreach(App\Helpers\SchoolHelper::sectionList() as $key => $sectionList)
-                            <option value="{{$key}}">{{$sectionList}}</option>
-                        @endforeach
-                    </select>
-                </div>
             </div>
 
-
-            <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">Roll Number</label>
-                <input type="text" name="roll_number" class="w-full border border-gray-300 rounded-md pl-3 pr-3 py-2 text-gray-900 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" placeholder="Enter roll number">
-            </div>
-
-            <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">Profile Picture</label>
-                <input type="file" name="profile_picture" class="w-full mt-1 text-gray-900">
-            </div>
-
-            <div class="flex justify-end space-x-3 pt-6">
-                <button type="button" id="cancelBtn" class="px-4 py-2 bg-gray-300 text-gray-800 rounded-md hover:bg-gray-400">Cancel</button>
-                <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700">Save</button>
-            </div>
-        </form>
-    </div>
-</div>
-
+            <!-- Modal - End  -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- Include in your blade -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet"/>
@@ -651,53 +656,112 @@
     <script>
         $(document).ready(function () {
             $('#openModalBtn').click(function () {
-                $('#studentModal').removeClass('hidden');
-            });
+        $('#studentModal').removeClass('hidden');
+        $('#modalTitle').text('Add New Student');
+        $('#studentForm')[0].reset();
+        $('#studentId').val(''); // Clear student ID
+        $('#imagePreview').addClass('hidden'); // Hide image preview
+        $('#submitBtn').text('Save'); // Set button text for Add
+        $('#studentForm').find('input[name="_method"]').val('POST'); // Set method to POST for Add
+        $('#studentForm').attr('action', "{{ route('students.store') }}"); // Set action for Add
+        $('.error-text').remove(); // Clear any previous errors
+    });
 
-            $('#closeModalBtn, #cancelBtn').click(function () {
-                $('#studentModal').addClass('hidden');
-            });
+    // Open modal for editing student
+    $(document).on('click', '.editStudentBtn', function () {
+    let studentId = $(this).data('id');
+    $('#studentModal').removeClass('hidden');
+    $('#modalTitle').text('Edit Student');
+    $('#studentId').val(studentId); // Set student ID
+    $('#submitBtn').text('Update'); // Set button text for Edit
+    $('#studentForm').find('input[name="_method"]').val('PUT'); // Set method to PUT for Edit
 
-            $('#studentForm').submit(function (e) {
-            e.preventDefault();
+    // Set the action URL by replacing a placeholder
+    let updateUrl = "{{ route('students.update', ':id') }}"; // Use a placeholder :id
+    updateUrl = updateUrl.replace(':id', studentId); // Replace :id with the actual studentId
+    $('#studentForm').attr('action', updateUrl); // Set the correct action URL
 
-            let formData = new FormData(this);
-            $('.error-text').remove(); // Remove old error messages
+    $('.error-text').remove(); // Clear any previous errors
 
-                $.ajax({
-                    url: "{{ route('students.store') }}",
-                    type: "POST",
-                    data: formData,
-                    contentType: false,
-                    processData: false,
-                    success: function (response) {
-                        if (response.status === 'success') {
-                            toastr.success(response.message || 'Student created successfully!');
-                            $('#studentForm')[0].reset();
-                            $('#studentModal').addClass('hidden');
-                        }
-                    },
-                    error: function (xhr) {
-                        if (xhr.status === 422) {
-                            let errors = xhr.responseJSON.errors;
-                            console.log("Validation Errors:", errors);
+    // Fetch student data to auto-fill the form
+    $.ajax({
+        url: "{{ url('students') }}/" + studentId, // Assuming route('students.show', $id)
+        type: "GET",
+        success: function (response) {
+            if (response.status === 'success') {
+                let student = response.data;
+                $('#name').val(student.name);
+                $('#email').val(student.email);
+                $('#number').val(student.number);
+                $('#class').val(student.class);
+                $('#section').val(student.section || '');
+                $('#roll_number').val(student.roll_number || '');
+                if (student.profile_picture) {
+                    $('#existingImage').attr('src', student.profile_picture);
+                    $('#imagePreview').removeClass('hidden');
+                } else {
+                    $('#imagePreview').addClass('hidden');
+                }
+            }
+        },
+        error: function (xhr) {
+            toastr.error('Failed to fetch student data');
+            $('#studentModal').addClass('hidden');
+        }
+    });
+});
 
-                            // Show first error message in toastr
-                            let firstError = Object.values(errors)[0][0];
-                            toastr.error(firstError || 'Validation error occurred');
+    // Close modal
+    $('#closeModalBtn, #cancelBtn').click(function () {
+        $('#studentModal').addClass('hidden');
+        $('#studentForm')[0].reset();
+        $('.error-text').remove();
+    });
 
-                            // Show all field errors
-                            $.each(errors, function (field, messages) {
-                                let input = $('[name="' + field + '"]');
-                                let errorHtml = `<p class="text-red-500 text-sm error-text mt-1">${messages[0]}</p>`;
-                                input.after(errorHtml);
-                            });
-                        }
-                    }
-                });
-            });
+    // Form submission (for both Add and Edit)
+    $('#studentForm').submit(function (e) {
+        e.preventDefault();
 
+        let formData = new FormData(this);
+        $('.error-text').remove(); // Remove old error messages
+
+        $.ajax({
+            url: $(this).attr('action'),
+            type: "POST", // Laravel handles PUT via _method
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function (response) {
+                if (response.status === 'success') {
+                    toastr.success(response.message || 'Student saved successfully!');
+                    $('#studentForm')[0].reset();
+                    $('#studentModal').addClass('hidden');
+                    // Reload table data here if needed
+                    // Example: fetchDataWithFilters(); // Call your table refresh function
+                }
+            },
+            error: function (xhr) {
+                if (xhr.status === 422) {
+                    let errors = xhr.responseJSON.errors;
+                    console.log("Validation Errors:", errors);
+
+                    let firstError = Object.values(errors)[0][0];
+                    toastr.error(firstError || 'Validation error occurred');
+
+                    $.each(errors, function (field, messages) {
+                        let input = $('[name="' + field + '"]');
+                        let errorHtml = `<p class="text-red-500 text-sm error-text mt-1">${messages[0]}</p>`;
+                        input.after(errorHtml);
+                    });
+                } else {
+                    toastr.error('An error occurred while saving the student');
+                }
+            }
         });
+    });
+});
+
+// add & edit Model end 
 
         // 
 

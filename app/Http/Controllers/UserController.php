@@ -10,33 +10,39 @@ use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use App\Helpers\SchoolHelper;
+use App\Traits\HandlesUserRegistration;
 
 class UserController extends Controller
 {
-
+    use HandlesUserRegistration;
     public function getUsers(Request $request)
     {
-        $search = $request->input('search');
-        $perPage = $request->input('per_page', 10); // default 10 per page
+        $apiType = 'get_user_details';
+        $rolesArr = SchoolHelper::roles(); // Example: ['Student' => 'student', 'Teacher' => 'teacher']
+        $roles = array_flip($rolesArr);
+        $getRole = $request->user_type ?? null;
+        $role = $getRole ? ($roles[strtolower($getRole)] ?? null) : null;
 
-        $query = User::query();
+        $reqDataArr = [
+                'search' => $request->input('search'),
+                'perPage' => $request->input('per_page', 10),
+                'role' => $role,
+                'status' => (int)$request->status,
+                'user_type' => $request->user_type,
+                'apiType' => $apiType
+            ];
 
-        if ($search) {
-            $query->where(function($q) use ($search) {
-                $q->where('name', 'like', "%$search%")
-                  ->orWhere('email', 'like', "%$search%");
-            });
-        }
-
-        $users = $query->paginate($perPage);
+        $users = $this->getUsersDetails($reqDataArr,$apiType);
 
         return response()->json($users);
+
     }
 
     public function allUsers(Request $request)
     {
         $query = User::query();
-        $users = $query->orderBy('id', 'desc')->paginate(6);
+        $users = $query->orderBy('id',
+         'desc')->paginate(6);
         
         if ($request->ajax()) {
             return response()->json([

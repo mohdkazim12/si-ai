@@ -347,7 +347,7 @@
         $btn.prop('disabled', true);
         
         $.ajax({
-            url: '/mark-attendance',
+            url: '/attendance/mark',
             type: 'POST',
             headers: {
                 'X-CSRF-TOKEN': csrfToken

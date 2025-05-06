@@ -137,76 +137,82 @@
         <div class="container mx-auto p-6">
             <!-- Search and Filter Section -->
             <div class="bg-white rounded-lg shadow-sm p-4 mb-6 border border-gray-100">
-                <div class="flex flex-col md:flex-row gap-4">
-                    <div class="flex-1">
-                        <div class="relative">
-                            <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                                <div class="w-5 h-5 flex items-center justify-center text-gray-400">
-                                    <i class="ri-search-line"></i>
-                                </div>
-                            </div>
-                            <input type="text" id="searchInput" class="bg-gray-50 border-none text-gray-900 text-sm rounded-lg block w-full pl-10 p-2.5 focus:ring-2 focus:ring-blue-500 focus:outline-none" placeholder="Search by name, ID, class, or email...">
-                        </div>
-                    </div>
-                    <div class="flex flex-wrap gap-3">
-                        <div class="relative">
-                            <button id="classFilterBtn" class="inline-flex items-center px-4 py-2.5 text-sm font-medium text-gray-700 bg-gray-50 rounded-lg hover:bg-gray-100 whitespace-nowrap">
-                                <div class="w-4 h-4 mr-2 flex items-center justify-center">
-                                    <i class="ri-group-line"></i>
-                                </div>
-                                Class
-                                <div class="w-4 h-4 ml-2 flex items-center justify-center">
-                                    <i class="ri-arrow-down-s-line"></i>
-                                </div>
-                            </button>
-                        </div>
-                        <div class="relative">
-                            <button id="statusFilterBtn" class="inline-flex items-center px-4 py-2.5 text-sm font-medium text-gray-700 bg-gray-50 rounded-lg hover:bg-gray-100 whitespace-nowrap">
-                                <div class="w-4 h-4 mr-2 flex items-center justify-center">
-                                    <i class="ri-filter-line"></i>
-                                </div>
-                                Status
-                                <div class="w-4 h-4 ml-2 flex items-center justify-center">
-                                    <i class="ri-arrow-down-s-line"></i>
-                                </div>
-                            </button>
-                        </div>
-                        <div class="relative">
-                            <button id="performanceFilterBtn" class="inline-flex items-center px-4 py-2.5 text-sm font-medium text-gray-700 bg-gray-50 rounded-lg hover:bg-gray-100 whitespace-nowrap">
-                                <div class="w-4 h-4 mr-2 flex items-center justify-center">
-                                    <i class="ri-bar-chart-line"></i>
-                                </div>
-                                Performance
-                                <div class="w-4 h-4 ml-2 flex items-center justify-center">
-                                    <i class="ri-arrow-down-s-line"></i>
-                                </div>
-                            </button>
-                        </div>
+    <div class="flex flex-col md:flex-row gap-4">
+        <!-- Search Input -->
+        <div class="flex-1">
+            <div class="relative">
+                <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                    <div class="w-5 h-5 flex items-center justify-center text-gray-400">
+                        <i class="ri-search-line"></i>
                     </div>
                 </div>
-                <!-- Active Filters -->
-                <div class="flex flex-wrap gap-2 mt-4">
-                    <div class="inline-flex items-center px-3 py-1 rounded-full text-sm bg-blue-100 text-blue-800">
-                        Class: 8A
-                        <button class="ml-2 text-blue-800">
-                            <div class="w-4 h-4 flex items-center justify-center">
-                                <i class="ri-close-line"></i>
-                            </div>
-                        </button>
+                <input type="text" id="searchInput" class="bg-gray-50 border-none text-gray-900 text-sm rounded-lg block w-full pl-10 p-2.5 focus:ring-2 focus:ring-blue-500 focus:outline-none" placeholder="Search by name, ID, class, or email...">
+            </div>
+        </div>
+        <!-- Filter Buttons -->
+        <div class="flex flex-wrap gap-3">
+            <!-- User Type Dropdown -->
+            <div class="relative">
+                <button id="userTypeFilterBtn" class="inline-flex items-center px-4 py-2.5 text-sm font-medium text-gray-700 bg-gray-50 rounded-lg hover:bg-gray-100 whitespace-nowrap">
+                    <div class="w-4 h-4 mr-2 flex items-center justify-center">
+                        <i class="ri-user-3-line"></i>
                     </div>
-                    <div class="inline-flex items-center px-3 py-1 rounded-full text-sm bg-green-100 text-green-800">
-                        Status: Active
-                        <button class="ml-2 text-green-800">
-                            <div class="w-4 h-4 flex items-center justify-center">
-                                <i class="ri-close-line"></i>
-                            </div>
-                        </button>
+                    User Type
+                    <div class="w-4 h-4 ml-2 flex items-center justify-center">
+                        <i class="ri-arrow-down-s-line"></i>
                     </div>
-                    <button class="text-sm text-blue-600 hover:text-blue-800">
-                        Clear All Filters
-                    </button>
+                </button>
+                <!-- Dropdown Menu -->
+                <div id="userTypeDropdown" class="absolute z-10 hidden mt-1 w-48 bg-white rounded-lg shadow-lg border border-gray-200">
+                    <ul class="py-1 text-sm text-gray-700">
+                        <li>
+                            <button class="filter-option w-full text-left px-4 py-2 hover:bg-gray-100" data-filter="user_type" data-value="Student">Student</button>
+                        </li>
+                        <li>
+                            <button class="filter-option w-full text-left px-4 py-2 hover:bg-gray-100" data-filter="user_type" data-value="Teacher">Teacher</button>
+                        </li>
+                        <li>
+                            <button class="filter-option w-full text-left px-4 py-2 hover:bg-gray-100" data-filter="user_type" data-value="Admin">Admin</button>
+                        </li>
+                    </ul>
                 </div>
             </div>
+            <!-- Status Dropdown -->
+            <div class="relative">
+                <button id="statusFilterBtn" class="inline-flex items-center px-4 py-2.5 text-sm font-medium text-gray-700 bg-gray-50 rounded-lg hover:bg-gray-100 whitespace-nowrap">
+                    <div class="w-4 h-4 mr-2 flex items-center justify-center">
+                        <i class="ri-filter-line"></i>
+                    </div>
+                    Status
+                    <div class="w-4 h-4 ml-2 flex items-center justify-center">
+                        <i class="ri-arrow-down-s-line"></i>
+                    </div>
+                </button>
+                <!-- Dropdown Menu -->
+                <div id="statusDropdown" class="absolute z-10 hidden mt-1 w-48 bg-white rounded-lg shadow-lg border border-gray-200">
+                    <ul class="py-1 text-sm text-gray-700">
+                        <li>
+                            <button class="filter-option w-full text-left px-4 py-2 hover:bg-gray-100" data-filter="status" data-value="1">Active</button>
+                        </li>
+                        <li>
+                            <button class="filter-option w-full text-left px-4 py-2 hover:bg-gray-100" data-filter="status" data-value="On Leave">On Leave</button>
+                        </li>
+                        <li>
+                            <button class="filter-option w-full text-left px-4 py-2 hover:bg-gray-100" data-filter="status" data-value="0">Inactive</button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Active Filters -->
+    <div id="activeFilters" class="flex flex-wrap gap-2 mt-4">
+        <!-- Filters will be added dynamically -->
+    </div>
+</div>
+
+            
 
             <!-- Students List -->
             <div class="bg-white rounded-lg shadow-sm overflow-hidden border border-gray-100 mb-6">
@@ -242,7 +248,19 @@
                                     User ID
                                 </th>
                                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Class(Section)
+                                </th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Roll No
+                                </th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Student ID
+                                </th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                     Contact
+                                </th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    User Type
                                 </th>
                                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                     Status
@@ -508,6 +526,9 @@
             }
 
             data.data.forEach(user => {
+                // user.student_details
+                const isStudent = user.student_details?.is_student ? { is_student: 'Student', color: 'bg-yellow-100 text-yellow-800' } : { is_student: 'Teacher', color: 'bg-green-100 text-green-800' };
+            
                 const statusColor = user.status === 'Active' ? 'bg-green-100 text-green-800' : 
                                   user.status === 'On Leave' ? 'bg-yellow-100 text-yellow-800' : 
                                   'bg-gray-100 text-gray-800';
@@ -526,16 +547,30 @@
                                 </div>
                                 <div class="ml-4">
                                     <div class="text-sm font-medium text-gray-900">${user.name}</div>
-                                    <div class="text-sm text-gray-500">${user.email}</div>
+                                    <div class="text-sm text-gray-500">${user.email} </div>
                                 </div>
                             </div>
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap">
                             <div class="text-sm text-gray-900">User-ID ${user.id}</div>
                         </td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <div class="text-sm text-gray-900">${user.student_details.class ? user.student_details.class + ' ' + user.student_details.section :'NA'}</div>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <div class="text-sm text-gray-900"> ${user.student_details.roll_number ?? 'NA'}</div>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <div class="text-sm text-gray-900"> ${user.student_details.id ?? 'NA'}</div>
+                        </td>
                         
                         <td class="px-6 py-4 whitespace-nowrap">
                             <div class="text-sm text-gray-900">${user.mobile_no}</div>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${isStudent.color}">
+                                ${isStudent.is_student}
+                            </span>
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap">
                             <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${statusColor}">
@@ -642,8 +677,214 @@
         fetchData(1, e.target.value); // Reset to page 1 on search
     }, 300));
 
+        // Top filters Js Code  Start 
+        // State to track active filters
+            let filters = {
+                user_type: null,
+                status: null,
+                // class: 'Class 8A' // Pre-applied filter as per image
+            };
 
+            // Function to toggle dropdown visibility
+            function toggleDropdown(dropdownId) {
+                const dropdown = document.getElementById(dropdownId);
+                dropdown.classList.toggle('hidden');
+            }
+
+            // Function to close all dropdowns
+            function closeAllDropdowns() {
+                document.getElementById('userTypeDropdown').classList.add('hidden');
+                document.getElementById('statusDropdown').classList.add('hidden');
+            }
+
+            // Event listeners for dropdown buttons
+            document.getElementById('userTypeFilterBtn').addEventListener('click', () => {
+                closeAllDropdowns();
+                toggleDropdown('userTypeDropdown');
+            });
+
+            document.getElementById('statusFilterBtn').addEventListener('click', () => {
+                closeAllDropdowns();
+                toggleDropdown('statusDropdown');
+            });
+
+            // Close dropdowns when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!e.target.closest('#userTypeFilterBtn') && !e.target.closest('#userTypeDropdown')) {
+                    document.getElementById('userTypeDropdown').classList.add('hidden');
+                }
+                if (!e.target.closest('#statusFilterBtn') && !e.target.closest('#statusDropdown')) {
+                    document.getElementById('statusDropdown').classList.add('hidden');
+                }
+            });
+
+            // Function to render active filters as tags
+            function renderFilters() {
+                const activeFilters = document.getElementById('activeFilters');
+                activeFilters.innerHTML = '';
+
+                // Add filter tags
+                Object.entries(filters).forEach(([key, value]) => {
+                    let bgColor =  "bg-red-100 text-red-800";
+                    if(key === 'user_type'){
+                         bgColor =  "bg-green-100 text-green-800";
+                    }else{
+                        bgColor = "bg-blue-100 text-blue-800";
+                    }
+                    if (value) {
+                        const label = key === 'user_type' ? 'User Type' : key.charAt(0).toUpperCase() + key.slice(1);
+                        const tagColor = bgColor;///key === 'status' && value === 'Active' ? 'bg-green-100 text-green-800' : 'bg-blue-100 text-blue-800';
+                        const tag = `
+                            <div class="inline-flex items-center px-3 py-1 rounded-full text-sm ${tagColor}">
+                                ${label}: ${value}
+                                <button class="ml-2" onclick="removeFilter('${key}')">
+                                    <div class="w-4 h-4 flex items-center justify-center">
+                                        <i class="ri-close-line"></i>
+                                    </div>
+                                </button>
+                            </div>
+                        `;
+                        activeFilters.innerHTML += tag;
+                    }
+                });
+
+                // Add Clear All Filters button if there are active filters
+                if (Object.values(filters).some(val => val !== null)) {
+                    activeFilters.innerHTML += `
+                        <button id="clearFilters" class="text-sm text-blue-600 hover:text-blue-800">
+                            Clear ALL Filter
+                        </button>
+                    `;
+                    document.getElementById('clearFilters').addEventListener('click', clearFilters);
+                }
+            }
+
+            // Function to remove a specific filter
+            function removeFilter(filterKey) {
+                filters[filterKey] = null;
+                renderFilters();
+            }
+
+            // Function to clear all filters
+            function clearFilters() {
+                filters = {
+                    user_type: null,
+                    status: null,
+                    class: null
+                };
+                document.getElementById('searchInput').value = '';
+                renderFilters();
+            }
+
+            // Event listeners for filter options
+            document.querySelectorAll('.filter-option').forEach(option => {
+                option.addEventListener('click', (e) => {
+                    const filterKey = e.target.dataset.filter;
+                    const filterValue = e.target.dataset.value;
+                    filters[filterKey] = filterValue;
+                    closeAllDropdowns();
+                    renderFilters();
+                });
+            });
+
+            // Initial render of filters (to show pre-applied Class: 8A)
+            renderFilters();
+
+            // Top filter js code end 
+
+
+            // Function to fetch data with separate filter parameters
+        async function fetchDataWithFilters(page = 1) {
+            const search = document.getElementById('searchInput').value;
+            let query = `page=${page}&per_page=7`;
+
+            // Add search parameter
+            if (search) {
+                query += `&search=${encodeURIComponent(search)}`;
+            }
+
+            // Add filter parameters
+            if (filters.user_type) {
+                query += `&user_type=${encodeURIComponent(filters.user_type)}`;
+            }
+            if (filters.status) {
+                query += `&status=${encodeURIComponent(filters.status)}`;
+            }
+            if (filters.class) {
+                query += `&class=${encodeURIComponent(filters.class)}`;
+            }
+
+            try {
+                const response = await fetch(`/users/data?${query}`);
+                const data = await response.json();
+                console.log(data); // Aap yaha apna table update kar sakte ho
+                // Example: updateTable(data);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        }
+
+        // Update renderFilters to call fetchDataWithFilters
+        function renderFilters() {
+            const activeFilters = document.getElementById('activeFilters');
+            activeFilters.innerHTML = '';
+
+            Object.entries(filters).forEach(([key, value]) => {
+                if (value) {
+                    const label = key === 'user_type' ? 'User Type' : key.charAt(0).toUpperCase() + key.slice(1);
+                    const tagColor = key === 'status' && value === 'Active' ? 'bg-green-100 text-green-800' : 'bg-blue-100 text-blue-800';
+                    const tag = `
+                        <div class="inline-flex items-center px-3 py-1 rounded-full text-sm ${tagColor}">
+                            ${label}: ${value}
+                            <button class="ml-2" onclick="removeFilter('${key}')">
+                                <div class="w-4 h-4 flex items-center justify-center">
+                                    <i class="ri-close-line"></i>
+                                </div>
+                            </button>
+                        </div>
+                    `;
+                    activeFilters.innerHTML += tag;
+                }
+            });
+
+            if (Object.values(filters).some(val => val !== null)) {
+                activeFilters.innerHTML += `
+                    <button id="clearFilters" class="text-sm text-blue-600 hover:text-blue-800">
+                        Clear ALL Filter
+                    </button>
+                `;
+                document.getElementById('clearFilters').addEventListener('click', clearFilters);
+            }
+
+            // Call fetchDataWithFilters after rendering filters
+            fetchDataWithFilters();
+        }
+
+        // Update removeFilter to fetch data after removing a filter
+        function removeFilter(filterKey) {
+            filters[filterKey] = null;
+            renderFilters();
+            fetchDataWithFilters();
+        }
+
+        // Update clearFilters to fetch data after clearing filters
+        function clearFilters() {
+            filters = {
+                user_type: null,
+                status: null,
+                class: null
+            };
+            document.getElementById('searchInput').value = '';
+            renderFilters();
+            fetchDataWithFilters();
+        }
+
+        // Add search input listener to fetch data on search
+        document.getElementById('searchInput').addEventListener('input', debounce(() => {
+            fetchDataWithFilters();
+        }, 300));
+
+        // Initial fetch
+        fetchDataWithFilters();
     </script>
-
-
 @endsection
